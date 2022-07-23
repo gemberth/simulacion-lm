@@ -973,11 +973,39 @@ def calcularMontecarlo():
     # 'Probabilidad': [0.83,0.06,0.05,0.02,0.02,0.01,0.01]
     # }
     df = pd.DataFrame(file)
+    dfc=df
+    dfc2=df
+    promediox=dfc['ventas'].mean()
+    sumaiox=dfc['ventas'].sum()
     # Array para guardar los resultados
     dataArray = []
     # Suma de probabilidad
-    sumProbabilidad = np.cumsum(df[probabilidad])
-    df['FDP'] = sumProbabilidad
+    #sumProbabilidad = np.cumsum(df[probabilidad])
+    #totalFAC=sumProbabilidad 
+    # Ordenamos por Día
+    suma = df['numerosemanas'].sum()
+    n=len(df)
+    suma
+    x1 = df.assign(Probabilidad=lambda x: x['numerosemanas'] / suma)
+    x2 = x1.sort_values('ventas')
+    a=x2['Probabilidad']
+    df['FDA']=x2['Probabilidad']
+    a
+    #df['FDA'] = a
+    sumProbabilidad= np.cumsum(a) #Cálculo la suma acumulativa de las probabilidades
+    df['FDP'] =sumProbabilidad
+    #x2
+
+    # for i in range(0,len(df)):
+    #     df['FDP'] = df[probabilidad]/totalFAC
+    #     # Generamos un numero aleatorio entre 0 y 1
+    #    # r = np.random.uniform(0, 1)
+    #     # Buscamos el indice del numero aleatorio
+    #    # indice = np.searchsorted(sumProbabilidad, r)
+    #     # Guardamos el valor del indice
+    #    # dataArray.append(df.iloc[indice][pago])
+
+    #df['FDP'] = sumProbabilidad
     # Obtenemos los datos mínimos
     datosMin = df['FDP']+0.001
     # Obtenemos los datos máximos
@@ -1047,7 +1075,7 @@ def calcularMontecarlo():
     ind
     df["Indice"] = ind
     # Ordenamos el DataFrame
-    df = df[['Indice',pago,probabilidad,'FDP','Min','Max']]
+    df = df[['Indice',pago,probabilidad,'FDA','FDP','Min','Max']]
      # Array para guardar los datos
     simula = []
     for j in range(n):
@@ -1119,7 +1147,7 @@ def calcularMontecarlo():
 
     # dfMCL.to_csv("static/file/data.csv", index=False)
     # """
-    return render_template('printSistemaMontecarlo.html', data=data1, data2=data2,data3=data, data4=datapro, image=plot_url)
+    return render_template('printSistemaMontecarlo.html', data=data1, data2=data2,data3=data, data4=datapro,data5=promediox,data6=sumaiox, image=plot_url)
     # def busqueda(arrmin, arrmax, valor):
     #     #print(valor)
     #     for i in range(len(arrmin)):
