@@ -975,19 +975,19 @@ def calcularMontecarlo():
     df = pd.DataFrame(file)
     dfc=df
     dfc2=df
-    promediox=dfc['ventas'].mean()
-    sumaiox=dfc['ventas'].sum()
+    promediox=dfc[pago].mean()
+    sumaiox=dfc[pago].sum()
     # Array para guardar los resultados
     dataArray = []
     # Suma de probabilidad
     #sumProbabilidad = np.cumsum(df[probabilidad])
     #totalFAC=sumProbabilidad 
     # Ordenamos por Día
-    suma = df['numerosemanas'].sum()
+    suma = df[probabilidad].sum()
     n=len(df)
     suma
-    x1 = df.assign(Probabilidad=lambda x: x['numerosemanas'] / suma)
-    x2 = x1.sort_values('ventas')
+    x1 = df.assign(Probabilidad=lambda x: x[probabilidad] / suma)
+    x2 = x1.sort_values(pago)
     a=x2['Probabilidad']
     df['FDA']=x2['Probabilidad']
     a
