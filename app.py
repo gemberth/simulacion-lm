@@ -1039,10 +1039,16 @@ def calcularMontecarlo():
             r[i] = x0 / m
     # llenamos el DataFrame
     if checkb == 'on':
-        b= naleatorio.split(',')
-        b= [float(i) for i in b]
-        n=len(b)
-        r=b
+        if naleatorio != '':   
+
+            b= naleatorio.split(',')
+            b= [float(i) for i in b]
+            n=len(b)
+            r=b
+        else:
+            r=[]
+            for i in range(0, n):
+                r.append(np.random.uniform(0, 1))
 
     d = {'ri': r }
 

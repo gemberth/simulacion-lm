@@ -46,31 +46,32 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="validationDefault02">Semilla (X0)</label>
-                        <input name="semilla" type="number" class="form-control" id="validationDefault02" required>
+                        <input name="semilla" type="number" class="form-control" id="semilla" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="validationDefault01">Multiplicador (a)</label>
-                        <input name="multiplicador" type="number" class="form-control" id="validationDefault01"
+                        <input name="multiplicador" type="number" class="form-control" id="mul"
                             required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="validationDefault02">Incremento (c)</label>
-                        <input name="incremento" type="number" class="form-control" id="validationDefault02" required>
+                        <input name="incremento" type="number" class="form-control" id="incre" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="validationDefault01">Módulo (m)</label>
-                        <input name="modulo" type="number" class="form-control" id="validationDefault01" required>
+                        <input name="modulo" type="number" class="form-control" id="modulo" required>
                     </div>
 
                     <fieldset>
                         <legend>Ingresar nuemeros aleatorios manualmente</legend>                    
                         <div>
-                          <input type="checkbox" id="validationDefault01" name="sino" >
-                          <label for="scales">si</label>
+                          <input type="checkbox"  name="sino"  id="check1" checked >
+                          <label for="scales">Si (si desea utilizar el metodo de congruencia lineal para generar  nuemeros aleatorios <b> desactive este check </b> <br> 
+                                                caso contrario <b>no llene la casilla de números aleatorios y espesifique la cantidad de iteraciones(n) </b> )</label>
                         </div>                
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-3" >
                             <label for="validationDefault01">Numeros Aletorios</label>
-                            <input name="aletorio" type="text" class="form-control" id="validationDefault01" >
+                            <input name="aletorio" type="text" class="form-control check" style="width:250%;"   >
                         </div>
                     </fieldset>                    
 
@@ -90,4 +91,48 @@
         </form><br>
     </div>
 </div><br>
+
+<script>
+    let miCheckbox = document.querySelector('#check1');
+    let s = document.querySelector('#semilla');
+    let mu = document.querySelector('#mul');
+    let i = document.querySelector('#incre');
+    let mo = document.querySelector('#modulo');
+    if(miCheckbox.checked) {
+       // s.removeAttribute('required');
+        s.removeAttribute('required');
+        mu.removeAttribute('required');
+        i.removeAttribute('required');
+        mo.removeAttribute('required');
+        //msg.innerText = 'El elemento está marcado';
+       // alert('El valor inicial del checkbox es ' + miCheckbox.checked);
+      } if(miCheckbox.checked == false) {
+        s.setAttribute('required', '');
+        mu.setAttribute('required', '');
+        i.setAttribute('required', '');
+        mo.setAttribute('required', '');
+        //msg.innerText = 'Ahora está desmarcado';
+        //alert('El valor inicial del checkbox es ' + miCheckbox.checked);
+      }
+
+      
+    miCheckbox.addEventListener('click', function() {
+      if(miCheckbox.checked) {
+       // s.removeAttribute('required');
+        s.removeAttribute('required');
+        mu.removeAttribute('required');
+        i.removeAttribute('required');
+        mo.removeAttribute('required');
+        //msg.innerText = 'El elemento está marcado';
+       // alert('El valor inicial del checkbox es ' + miCheckbox.checked);
+      } if(miCheckbox.checked == false) {
+        s.setAttribute('required', '');
+        mu.setAttribute('required', '');
+        i.setAttribute('required', '');
+        mo.setAttribute('required', '');
+        //msg.innerText = 'Ahora está desmarcado';
+        //alert('El valor inicial del checkbox es ' + miCheckbox.checked);
+      }
+    });
+  </script>
 {% endblock %}
