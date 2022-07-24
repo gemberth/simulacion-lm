@@ -931,9 +931,13 @@ def calcularMontecarlo():
     c1 = request.form.get("incremento", type=int)
     m1 = request.form.get("modulo", type=int)
 
+    naleatorio=request.form.get("aletorio")
+
+    #naleatorio= float(naleatorio)
+    checkb=request.form.get("sino")
+
     pago = request.form.get("x")
     probabilidad = request.form.get("y")
-
     file = request.files['file'].read()
 
     import pandas as pd
@@ -976,7 +980,7 @@ def calcularMontecarlo():
     dfc=df
     dfc2=df
     promediox=dfc[pago].mean()
-    sumaiox=dfc[pago].sum()
+    sumaiox=dfc2[pago].sum()
     # Array para guardar los resultados
     dataArray = []
     # Suma de probabilidad
@@ -1022,15 +1026,26 @@ def calcularMontecarlo():
     a = a1
     x0 = x01
     c = c1
+    x=[]
+    r=[]
+    if checkb != 'on':
+
     # Obtenemos los resultados
-    x = [1] * n
-    r = [0.1] * n
-    for i in range(0, n):
-        x[i] = ((a*x0)+c) % m
-        x0 = x[i]
-        r[i] = x0 / m
+        x = [1] * n
+        r = [0.1] * n
+        for i in range(0, n):
+            x[i] = ((a*x0)+c) % m
+            x0 = x[i]
+            r[i] = x0 / m
     # llenamos el DataFrame
+    if checkb == 'on':
+        b= naleatorio.split(',')
+        b= [float(i) for i in b]
+        n=len(b)
+        r=b
+
     d = {'ri': r }
+
     dfMCL = pd.DataFrame(data=d)
     dfMCL
 
@@ -1053,6 +1068,7 @@ def calcularMontecarlo():
                 return i
      #print(i)
         return -1
+    # Obtenemos los valores mínimos--------------------------------------------
     xpos = dfMCL['ri']
     posi = [0] * n
     #print (n)
